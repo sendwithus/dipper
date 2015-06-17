@@ -10,6 +10,15 @@ logging.basicConfig()
 
 @route('/webhook_failed')
 def webhook_failed():
+    try:
+        data = request.json
+    except Exception as e:
+        logging.error("Error parsing json: %s\n%s" % (e, request.body))
+
+    try:
+        logging.warn('Failed request: %s' % data)
+    except Exception as e:
+        logging.error("I had real problems: %s" % e)
     return "ok"
 
 
